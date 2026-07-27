@@ -18,23 +18,28 @@ async function bootstrap() {
 
   app.useGlobalFilters(new AllExceptionsFilter());
   app.useGlobalInterceptors(new ResponseInterceptor());
-  app.enableCors({
-    origin: (origin, callback) => {
-      const allowed = [
-        'http://localhost:3001',
-        'https://personalized-ai-frontend.vercel.app',
-      ];
-      const isVercelPreview =
-        origin &&
-        /^https:\/\/personalized-ai-frontend-.*\.vercel\.app$/.test(origin);
+  // app.enableCors({
+  //   origin: (origin, callback) => {
+  //     const allowed = [
+  //       'http://localhost:3001',
+  //       'https://personalized-ai-frontend.vercel.app',
+  //     ];
+  //     const isVercelPreview =
+  //       origin &&
+  //       /^https:\/\/personalized-ai-frontend-.*\.vercel\.app$/.test(origin);
 
-      if (!origin || allowed.includes(origin) || isVercelPreview) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    credentials: true,
+  //     if (!origin || allowed.includes(origin) || isVercelPreview) {
+  //       callback(null, true);
+  //     } else {
+  //       callback(new Error('Not allowed by CORS'));
+  //     }
+  //   },
+  //   credentials: true,
+  // });
+
+  app.enableCors({
+    origin: '*',
+    credentials: false,
   });
 
   app.useLogger(logger);

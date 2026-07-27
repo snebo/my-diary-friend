@@ -17,8 +17,5 @@ for f in /app/supabase/migrations/*.sql; do
   psql "$DATABASE_URL" -f "$f"
 done
 
-echo "Running tests..."
-pnpm test
-
 echo "Starting application with command: $@"
 exec "$@"

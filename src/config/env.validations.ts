@@ -8,22 +8,7 @@ import {
 
 class EnvVars {
   @IsString()
-  DB_HOST!: string;
-
-  @IsNumberString()
-  DB_PORT!: string;
-
-  @IsString()
-  DB_USERNAME!: string;
-
-  @IsString()
-  DB_PASSWORD!: string;
-
-  @IsString()
-  DB_NAME!: string;
-
-  @IsBooleanString()
-  DB_SSL!: string;
+  DATABASE_URL!: string;
 
   @IsString()
   SUPABASE_URL!: string;

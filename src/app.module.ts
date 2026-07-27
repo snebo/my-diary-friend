@@ -30,17 +30,14 @@ import { ChatModule } from './chat/chat.module';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         type: 'postgres',
-        host: config.getOrThrow<string>('DB_HOST'),
-        port: Number(config.getOrThrow<string>('DB_PORT')),
-        username: config.getOrThrow<string>('DB_USERNAME'),
-        password: config.getOrThrow<string>('DB_PASSWORD'),
-        database: config.getOrThrow<string>('DB_NAME'),
-        ssl:
-          config.getOrThrow<string>('DB_SSL') === 'true'
-            ? { rejectUnauthorized: false }
-            : false,
+        url: config.getOrThrow<string>('DATABASE_URL'),
+
         autoLoadEntities: true,
         synchronize: false,
+
+        ssl: {
+          rejectUnauthorized: false,
+        },
       }),
     }),
 

@@ -3,16 +3,10 @@ set -e
 
 echo "Starting Entrypoint Script..."
 
-# Extract DB connection details from DATABASE_URL or use individual variables
-# DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
-DB_HOST=$(echo $DATABASE_URL | sed -e 's|.*@||' -e 's|:.*||')
-DB_PORT=$(echo $DATABASE_URL | sed -e 's|.*:||' -e 's|/.*||')
-DB_USER=$(echo $DATABASE_URL | sed -e 's|.*//||' -e 's|:.*||')
+echo "Waiting for database..."
 
-echo "Waiting for database at $DB_HOST:$DB_PORT..."
-
-# Wait for the database to be ready
-until pg_isready -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER"; do
+# pg_isready accepts a full connection URI via -d
+until pg_isready -d "$DATABASE_URL"; do
   echo "Database is unavailable - sleeping..."
   sleep 2
 done
